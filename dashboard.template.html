@@ -1,0 +1,48 @@
+<div>
+     <div class="page-header">
+                <img src="/img/sapientnitro_logo.png" alt="logo" id="logo">  
+                <h1>eCart <small>an ecom Hub!</small></h1>                  
+            </div>
+            <div class="container-float">
+               <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2">Search</label>
+                        <input type="text" ng-model="search.tags" class="form-control" id="exampleInputName2" placeholder="Search (by tags)" list="mylist">
+                        <datalist id="mylist">
+                            <option ng-repeat="x in ctrl.tags">{{x}}</option>                            
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Sort By:</label>
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="ctrl.order" name="inlineRadioOptions" id="inlineRadio1" value="rating" checked> Rating
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="ctrl.order" name="inlineRadioOptions" id="inlineRadio2" value="like" disabled> Like
+                        </label>
+                    </div>
+                    <button class="btn btn-default" type="button">
+                        Total Likes <span class="badge">21</span>
+                         | API hits <span class="badge">{{ctrl.api_count}}</span>
+                         | Total Products <span class="badge">{{ctrl.total_products}}</span>
+                    </button>
+               </form>
+            </div>
+            <div class="container-float">
+                <div class="col-md-4" ng-repeat="x in ctrl.data.deals | filter:search:strict | orderBy:'rating':true">
+                    <div class="media thumbnail">
+                        <div class="media-left media-middle" style="height:150px; width:150px" >                            
+                            <img class="media-object" src="{{x.image}}" alt="image" id="cards">                            
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="{{x.link}}" target="_blank">{{x.name}}</a></h4>
+                            <p class="text-muted">Purchased by: {{x.purchased_by}}</p>
+                            <p class="text-muted">Price: {{x.price}} | Rating: {{x.rating}}</p>
+                            <p class="text-muted">Tags: <span ng-repeat="a in x.tags">{{a}},</span></p>
+                            <a class="text-muted">Like <span class="badge">{{ctrl.likes[x.name]}}</span></p>
+                        </div>
+                    </div>                    
+                </div>                
+                
+            </div>
+        </div>
